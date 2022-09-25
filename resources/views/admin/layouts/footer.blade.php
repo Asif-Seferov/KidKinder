@@ -18,6 +18,7 @@
 
 <!-- jQuery -->
 <script src="{{asset('admin/assets/plugins/jquery/jquery.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('admin/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -48,7 +49,18 @@
 <script src="{{asset('admin/assets/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admin/assets/dist/js/demo.js')}}"></script>
+<!-- Toastr -->
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<!-- Sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-
+<script>
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+</script>
 </body>
 </html>

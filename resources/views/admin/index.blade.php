@@ -89,3 +89,6 @@
     </section>
     <!-- /.content -->
 @endsection
+@section('dashboard', 'Əsas')
+@section('next_page', 'İstifadəçilər')
+@section('current_page', 'Əsas')

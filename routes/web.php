@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,23 @@ Route::get('/contact', function(){
 Route::get('admin/home', function(){
     return view('admin.index');
 });
+
+Route::prefix('admin')->group(function () {
+    // Role Controller
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::post('/roles/store', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('/roles', [RoleController::class, 'update'])->name('roles.update');
+    Route::post('/roles/delete', [RoleController::class, 'destroy'])->name('roles.destroy');
+    // Auth Controller
+    Route::get('/register', [AuthController::class, 'register_form'])->name('user.register');
+});
+
+
+
+    
+
+
 
 // Pages Controller
 //Route::get('/home', [PagesController::class, 'index'])->name('template.home');
