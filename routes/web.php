@@ -54,6 +54,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/roles/delete', [RoleController::class, 'destroy'])->name('roles.destroy');
     // Auth Controller
     Route::get('/register', [AuthController::class, 'register_form'])->name('user.register');
+    Route::post('/register/store', [AuthController::class, 'register_store'])->name('register.store');
+    Route::get('/user/list', [AuthController::class, 'user_list'])->name('user.list');
 });
 
 

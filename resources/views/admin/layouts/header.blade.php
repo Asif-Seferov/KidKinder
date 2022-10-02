@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="{{asset('admin/assets/plugins/summernote/summernote-bs4.min.css')}}">
   <!-- Toastr css file -->
   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+  <!-- sweetalert -->
+  
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 

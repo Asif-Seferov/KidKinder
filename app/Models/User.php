@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -41,4 +42,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function getNameAttribute($name){
+        return ucfirst($name);
+    }
+    public function getSurnameAttribute($surname){
+        return ucfirst($surname);
+    }
+    public function getDate($date){
+        return Carbon::parse($date)->diffForHumans();
+    }
 }

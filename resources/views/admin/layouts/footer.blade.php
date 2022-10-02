@@ -53,6 +53,7 @@
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <!-- Sweet alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@include('sweetalert::alert')
 </head>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script>
