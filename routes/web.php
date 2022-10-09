@@ -56,6 +56,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/register', [AuthController::class, 'register_form'])->name('user.register');
     Route::post('/register/store', [AuthController::class, 'register_store'])->name('register.store');
     Route::get('/user/list', [AuthController::class, 'user_list'])->name('user.list');
+    Route::get('/user/{id}/edit', [AuthController::class, 'edit_user'])->name('edit.user');
+    Route::post('/user/{id}/upload', [AuthController::class, 'upload_user'])->name('upload.user');
+    Route::post('/user/delete', [AuthController::class, 'destroy'])->name('delete.user');
+    Route::post('/user/multiple-delete', [AuthController::class, 'choose_delete'])->name('delete.choose.user');
+    Route::get('/user/list-delete', [AuthController::class, 'list_choose_user'])->name('list.choose.user');
 });
 
 
