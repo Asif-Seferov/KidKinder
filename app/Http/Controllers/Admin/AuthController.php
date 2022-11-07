@@ -92,6 +92,18 @@ class AuthController extends Controller
         }
         return response()->json(['message' => 'uqurla silindi', 'status' => 'success']);
     }
+    public function destroy_choose_users(Request $request){
+      try{
+            $ids = $request->ids;
+            foreach($ids as $id){
+                $user = User::find($id);
+                $user->delete();
+                return response()->json(['message'=>'uqurla silindi', 'status'=>'success'], 200);
+            }
+      }catch(\Exception $e){
+          echo $e->getMessage();
+      }
+    }
     public function register_store(RegisterRequest $request){
         try{
             $email = $request->email;

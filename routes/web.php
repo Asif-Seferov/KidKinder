@@ -62,6 +62,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/user/multiple-delete', [AuthController::class, 'choose_delete'])->name('delete.choose.user');
     Route::get('/user/list-delete', [AuthController::class, 'list_choose_user'])->name('list.choose.user');
     Route::post('/user/come-back/', [AuthController::class, 'come_back_user'])->name("come.back.user");
+    Route::post('/user/destroy-choose', [AuthController::class, 'destroy_choose_users'])->name('destroy.choose.users');
 });
 
 

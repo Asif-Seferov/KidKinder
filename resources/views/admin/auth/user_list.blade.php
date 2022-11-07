@@ -10,7 +10,6 @@
                 </a>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Hamısını sil</a>
                     <a class="dropdown-item" id="delete_choose_user" href="#">Seçilmişləri sil</a>
                     @if(count($view))
                         <a class="dropdown-item" href="{{route('list.choose.user')}}">Silinmiş elementlər</a>
@@ -93,6 +92,8 @@
                     @endforeach
                     </tbody>
                 </table>
+                <a href="javascript:void(0)" class="btn btn-outline-success" id="select_all_users">Hamısını seç</a> &nbsp;
+                <a href="javascript:void(0)" class="btn btn-outline-danger" id="cancel">Ləğv et</a>
                 <span style="float: right;">{{ $users->links() }}</span>
             </div>
         </div>
@@ -177,6 +178,21 @@
                         text: 'Silmək üçün element təyin olunmamışdır!',
                     })
                 }   
+            });
+            $("#select_all_users").click(function(e){
+                e.preventDefault();
+                $('input:checkbox').prop("checked", true);
+            });
+            $("#cancel").click(function(e){
+                e.preventDefault();
+                $("input:checkbox").prop("checked", false);
+            });
+            $("#all_delete_users").click(function(e){
+                e.preventDefault();
+                var count = [];
+                $('input[name="user_delete[]"]:checked').each(function(i){
+                    count[i] = $(this).length;
+                });
             });
         });
     </script>

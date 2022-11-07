@@ -8,12 +8,9 @@
                     <a class="btn btn-danger dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                         Əməliyyatlar
                     </a>
-
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Hamısını sil</a>
-                        <a class="dropdown-item" id="delete_choose_user" href="#">Seçilmişləri sil</a>
+                        <a class="dropdown-item" id="delete_choose_users" href="#">Seçilmişləri sil</a>
                         <a class="dropdown-item" id="come_back_users" href="#">Seçilmişləri qaytar</a>
-                        <a class="dropdown-item" id="delete_choose_user" href="#">Hamısını qaytar</a>
                     </div>
                 </div>
                 <table class="table table-bordered">
@@ -29,7 +26,7 @@
                     </thead>
                     <tbody>
                         @foreach($delete_users as $k => $user)
-                        <tr>
+                        <tr id="row{{$user->id}}" data-id="{{$user->id}}">
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input position-static" type="checkbox" name="user_back[]" value="{{$user->id}}">
@@ -50,6 +47,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                <a href="javascript:void(0)" class="btn btn-outline-success" id="select_all_users">Hamısını seç</a> &nbsp;
+                <a href="javascript:void(0)" class="btn btn-outline-danger" id="cancel">Ləğv et</a>
             </div>
         </div>
     </div>
@@ -87,8 +86,8 @@
                             });
                             $.post(url, {ids: back}, function(data){
                                 Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                'Uğurlu!',
+                                'Məlumatlar uğurla geri qaytarıldı.',
                                 'success'
                                 )
                                 setInterval('location.reload()', 3000);
@@ -105,6 +104,61 @@
                         })
                 } 
             });
+            $("#delete_choose_users").click(function(e){
+                e.preventDefault();
+                var count = [];
+                $('input[name="user_back[]"]:checked').each(function(i){
+                    count[i] = $(this).length;
+                });
+                if(count != 0){
+                    Swal.fire({
+                        title: 'Silmək istədiyinizdən əminsiniz?',
+                        text: "Sildiyin təqdirdə geri dönüş mümkün olmayacaqdır!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Bəli, silinsin!'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            var url = '{{route('destroy.choose.users')}}';
+                            var ids = [];
+                            $('input[name="user_back[]"]:checked').each(function(i){
+                                ids[i] = $(this).val();
+                            });
+                            $.ajax({
+                                method: "POST",
+                                url: url,
+                                data: {ids: ids},
+                                success: function(response){
+                                    console.log(response);
+                                }
+                            })
+                            Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                            setInterval('location.reload()', 3000);
+                        }
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xəta',
+                        text: 'Heç bir element təyin edilməmişdir!',
+                        })
+                }
+            });
+            $("#select_all_users").on("click", function(e){
+                e.preventDefault();
+                $('input[name="user_back[]"]').prop("checked", true);
+            });
+            $("#cancel").on("click", function(e){
+                e.preventDefault();
+                $('input[name="user_back[]"]').prop("checked", false);
+            });
+            
         });
     </script>
 @endsection
