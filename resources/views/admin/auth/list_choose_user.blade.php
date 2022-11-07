@@ -12,7 +12,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Hamısını sil</a>
                         <a class="dropdown-item" id="delete_choose_user" href="#">Seçilmişləri sil</a>
-                        <a class="dropdown-item" id="delete_choose_user" href="#">Seçilmişləri qaytar</a>
+                        <a class="dropdown-item" id="come_back_users" href="#">Seçilmişləri qaytar</a>
                         <a class="dropdown-item" id="delete_choose_user" href="#">Hamısını qaytar</a>
                     </div>
                 </div>
@@ -57,3 +57,54 @@
 @section('dashboard', 'Silinmiş istifadəçilər')
 @section('next_page', 'İstifdəçilərin siyahısı')
 @section('current_page', 'Silinmiş İstifadəçilər')
+@section('js')
+    <script>
+        $(function(){
+            $("#come_back_users").click(function(e){
+                e.preventDefault();
+                var count = [];
+                
+                $('input[name="user_back[]"]:checked').each(function(i){
+                    count[i] = $(this).length;
+                    console.log(count);
+                });
+                if(count != 0){
+                    
+                    Swal.fire({
+                        title: 'Geri qaytarmaq istədiyinizdən əminsiniz?',
+                        text: "Bu zaman bütün silinmiş istifadəçilər geri qaytarılacaqdır!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Bəli, qaytarılsın!'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            var back = [];
+                            var url = '{{route('come.back.user')}}';
+                            $('input[name="user_back[]"]:checked').each(function(i){
+                            back[i] = $(this).val();
+                            });
+                            $.post(url, {ids: back}, function(data){
+                                Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )
+                                setInterval('location.reload()', 3000);
+                                //console.log(data.message);
+                            });
+                            
+                        }
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xəta',
+                        text: 'Heç bir element təyin edilməmişdir!',
+                        })
+                } 
+            });
+        });
+    </script>
+@endsection

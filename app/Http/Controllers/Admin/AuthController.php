@@ -83,6 +83,15 @@ class AuthController extends Controller
         $delete_users = User::where('view', 0)->get();
         return view('admin.auth.list_choose_user', compact('delete_users'));
     }
+    public function come_back_user(Request $request){
+        $ids = $request->ids;
+        foreach($ids as $id){
+            $user = User::where('id', $id)->firstOrFail();
+            $user->view = $user->view ? 0 : 1;
+            $user->save();
+        }
+        return response()->json(['message' => 'uqurla silindi', 'status' => 'success']);
+    }
     public function register_store(RegisterRequest $request){
         try{
             $email = $request->email;
