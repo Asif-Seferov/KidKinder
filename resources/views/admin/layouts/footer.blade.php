@@ -53,15 +53,62 @@
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <!-- Sweet alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{asset('admin/assets/dist/js/dropzone.min.js')}}"></script>
+
 @include('sweetalert::alert')
 </head>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script>
+<script>  
+
+ 
   $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+  
+  Dropzone.autoDiscover = false;
+$(document).ready(function(){
+            function getFileList(){
+                $("#file_list").load('{{route('list.file')}}').fadeIn("slow");
+              };
+      $("#fileForm").dropzone({
+          url: '{{route('file.store')}}',
+          method: 'post',
+          parallelUploads: 100,
+          uploadMultiple: true,
+          paramName: 'image',
+          autoProcessQueue: true,
+          addRemoveLinks: true,
+          init: function(){
+            var th = this;
+            this.on('queuecomplete', function(){
+                setTimeout(function(){
+                    th.removeAllFiles();
+                },5000);
+            });
+            this.on("success", function(file, response) {
+              getFileList();
+              
+            });
+          },  
+          
+      });
+      $(document).on("click", "#downloadBtn", function(){
+        $(".file-list").css("display", "none");
+      });
+      $(document).on("click", "#galeriya", function(){
+        getFileList();
+      })
+    $(document).on("click", "#listBtn", function(){
+        $(".file-list").css("display", "block");
+        
+      
+
+    });
+    });
+    
+    
 </script>
 </body>
 </html>

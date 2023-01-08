@@ -1,6 +1,7 @@
 @extends("admin.layouts.master")
 @section('title', 'KidKinder | Register')
 @section('content')
+        
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
@@ -55,6 +56,7 @@
 
                 </form>
             </div>
+            @include('admin.layouts.file_manager')
         </div>
     </div>
 @endsection
@@ -63,7 +65,8 @@
 @section('current_page', 'Qeydiyyat')
 @section('js')
     <script>
-        $(function(){
+         
+        $(document).ready(function(){
             $("#btnCancel").click(function(e){
                 e.preventDefault();
                 var firstname = $("#firstname").val();
