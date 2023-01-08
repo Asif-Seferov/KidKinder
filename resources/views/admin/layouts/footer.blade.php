@@ -102,11 +102,43 @@ $(document).ready(function(){
       })
     $(document).on("click", "#listBtn", function(){
         $(".file-list").css("display", "block");
-        
-      
+      });
+    $(document).on("click", ".delete-file", function(e){
+      e.preventDefault();
+      var id = $(this).data("id");
+      var url = '{{route('delete.file')}}';
+      var file = $("#files"+id);
+      var deleteFile = $("#delete"+id);
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: url,
+              method: "POST",
+              data: {id: id},
+              success: function(){
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                file.remove();
+                deleteFile.remove();
+              }
+            })
+            
+          }
+        })
+    });
 
-    });
-    });
+});
     
     
 </script>

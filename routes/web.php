@@ -68,6 +68,7 @@ Route::prefix('admin')->group(function () {
     //File Controller
     Route::post('/file/store', [DropzoneController::class, 'file_store'])->name('file.store');
     Route::get('/list/file', [DropzoneController::class, 'list_file'])->name('list.file');
+    Route::post('/file/destroy', [DropzoneController::class, 'destroy_file'])->name('delete.file');
 });
 
 

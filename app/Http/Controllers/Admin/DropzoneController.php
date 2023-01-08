@@ -29,4 +29,13 @@ class DropzoneController extends Controller
     public function list_file(){
         return view("admin.layouts.list_file");
     }
+    public function destroy_file(Request $request){
+        try{
+            $id = $request->id;
+            $files = Files::findOrFail($id);
+            $files->delete();
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
+    }
 }

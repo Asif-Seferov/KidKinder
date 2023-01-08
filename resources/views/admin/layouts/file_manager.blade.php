@@ -24,6 +24,17 @@
         width: 100%;
         height: 100%;
     }
+    .file-img{
+        position: relative;
+        display: inline-block;
+    }
+    .delete-file{
+        position: absolute;
+        margin-top: 64px;
+        margin-left: -38px;
+        z-index: 9999;
+        display: inline-block;
+    }
 </style>
 <!-- Button trigger modal -->
 <div class="col-md-6">
